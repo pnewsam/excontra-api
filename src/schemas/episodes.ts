@@ -1,0 +1,24 @@
+export type Episode = {
+  id: string;
+  title: string;
+  link: string;
+  description: string;
+  guid: string;
+  datePublished: string;
+  datePublishedPretty: string;
+  dateCrawled: string;
+  enclosureUrl: string;
+  enclosureType: string;
+  enclosureLength: number;
+  duration: number;
+  explicit: boolean;
+  episode: number;
+  episodeType: string;
+  season: number;
+  image: string;
+  feedItunesId: number;
+  feedImage: string;
+  feedId: number;
+  feedTitle: string;
+  feedLanguage: string;
+};
