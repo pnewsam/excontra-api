@@ -6,7 +6,7 @@ import { Episode } from "../schemas/episodes";
 export function podcastIndex(c: Context) {
   const API_URL = "https://api.podcastindex.org/api/1.0";
   const runtime = getRuntimeKey();
-  console.log({ runtime });
+
   const { PODCAST_INDEX_API_KEY, PODCAST_INDEX_API_SECRET } = env(c, runtime);
 
   async function getAuthorization(timestamp: number) {
@@ -31,7 +31,12 @@ export function podcastIndex(c: Context) {
       const headers = await getHeaders();
       try {
         const response = await fetch(`${API_URL}/${path}`, {
-          headers,
+          headers: {
+            ...headers,
+            "Access-Control-Allow-Origin": "http://localhost:5173",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+          },
         });
         return response.json();
       } catch (error) {

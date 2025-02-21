@@ -5,10 +5,14 @@ import { podcastIndex } from "./services/podcastIndex";
 
 const app = new Hono();
 
-app.use("*", (c, next) => {
+app.use(async (c, next) => {
   const { FRONTEND_URL } = env(c, "workerd");
+
+  // Apply CORS dynamically based on environment variables
   return cors({
     origin: (FRONTEND_URL as string) ?? "http://localhost:5173",
+    allowMethods: ["GET", "POST", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
   })(c, next);
 });
 
@@ -19,7 +23,6 @@ app.get("/", (c) => {
 app.get("/episodes", async (c) => {
   const client = podcastIndex(c);
   const episodes = await client.getRecentEpisodes();
-  console.log({ episodes });
   return c.json(episodes);
 });
 
