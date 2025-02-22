@@ -2,7 +2,7 @@ import { sha1 } from "hono/utils/crypto";
 import { Context } from "hono";
 import { env, getRuntimeKey } from "hono/adapter";
 import { Episode } from "../schemas/episodes";
-
+import { Feed } from "../schemas/feeds";
 export function podcastIndex(c: Context) {
   const API_URL = "https://api.podcastindex.org/api/1.0";
   const runtime = getRuntimeKey();
@@ -26,11 +26,18 @@ export function podcastIndex(c: Context) {
     };
   }
 
-  function get<T>(path: string): () => Promise<T> {
-    return async () => {
+  function get<T>(
+    path: string
+  ): (params?: Record<string, string>) => Promise<T> {
+    return async (params?: Record<string, string>) => {
       const headers = await getHeaders();
+      const queryParams = params ? new URLSearchParams(params).toString() : "";
+      const url = queryParams
+        ? `${API_URL}/${path}?${queryParams}`
+        : `${API_URL}/${path}`;
+
       try {
-        const response = await fetch(`${API_URL}/${path}`, {
+        const response = await fetch(url, {
           headers: {
             ...headers,
             "Access-Control-Allow-Origin": "http://localhost:5173",
@@ -45,9 +52,11 @@ export function podcastIndex(c: Context) {
     };
   }
 
-  const getRecentEpisodes = get<Episode[]>("recent/episodes?max=7&pretty");
+  const getRecentEpisodes = get<Episode[]>("recent/episodes");
+  const getFeed = get<Feed>("podcasts/byfeedid");
 
   return {
     getRecentEpisodes,
+    getFeed,
   };
 }
