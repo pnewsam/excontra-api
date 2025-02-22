@@ -12,7 +12,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Deploy to Cloudflare
-        run: npx wrangler deploy --env production
+        run: npx wrangler deploy
         env:
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           PODCAST_INDEX_API_KEY: ${{ secrets.PODCAST_INDEX_API_KEY }}
