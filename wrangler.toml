@@ -4,10 +4,8 @@ compatibility_date = "2025-02-09"
 
 # compatibility_flags = ["nodejs_compat"]
 
-[vars]
-PODCAST_INDEX_API_KEY = ""
-PODCAST_INDEX_API_SECRET = ""
-FRONTEND_URL = ""
+[env.production]
+vars = { FRONTEND_URL = "https://excontra.pages.dev/" }
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE" 

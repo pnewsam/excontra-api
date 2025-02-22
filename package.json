@@ -1,8 +1,7 @@
 {
   "name": "excontra-api",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "dev": "wrangler dev"
   },
   "dependencies": {
     "hono": "^4.6.20"
