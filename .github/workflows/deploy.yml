@@ -9,10 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
       - name: Install Dependencies
-        run: npm install
+        run: bun install
       - name: Deploy to Cloudflare
-        run: npx wrangler deploy
+        run: bunx wrangler deploy
         env:
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           PODCAST_INDEX_API_KEY: ${{ secrets.PODCAST_INDEX_API_KEY }}
