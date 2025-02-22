@@ -4,6 +4,9 @@ compatibility_date = "2025-02-09"
 
 # compatibility_flags = ["nodejs_compat"]
 
+[vars]
+FRONTEND_URL = "https://excontra.com"
+
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE" 
 # id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
