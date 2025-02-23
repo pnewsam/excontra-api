@@ -39,4 +39,13 @@ app.get("/feeds/:id", async (c) => {
   return c.json(feed);
 });
 
+app.get("/feeds/:id/episodes", async (c) => {
+  const id = c.req.param("id");
+  const client = podcastIndex(c);
+  const episodes = await client.getEpisodesByFeedId({
+    id: id,
+    pretty: "true",
+  });
+  return c.json(episodes);
+});
 export default app;

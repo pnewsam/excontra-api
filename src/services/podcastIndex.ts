@@ -3,6 +3,7 @@ import { Context } from "hono";
 import { env, getRuntimeKey } from "hono/adapter";
 import { Episode } from "../schemas/episodes";
 import { Feed } from "../schemas/feeds";
+
 export function podcastIndex(c: Context) {
   const API_URL = "https://api.podcastindex.org/api/1.0";
   const runtime = getRuntimeKey();
@@ -54,9 +55,11 @@ export function podcastIndex(c: Context) {
 
   const getRecentEpisodes = get<Episode[]>("recent/episodes");
   const getFeed = get<Feed>("podcasts/byfeedid");
+  const getEpisodesByFeedId = get<Episode[]>("episodes/byfeedid");
 
   return {
     getRecentEpisodes,
     getFeed,
+    getEpisodesByFeedId,
   };
 }
