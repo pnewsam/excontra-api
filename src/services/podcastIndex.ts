@@ -57,11 +57,13 @@ export function podcastIndex(c: Context) {
   const getFeed = get<Feed>("podcasts/byfeedid");
   const getEpisodesByFeedId = get<Episode[]>("episodes/byfeedid");
   const getRecentFeeds = get<Feed[]>("/recent/feeds");
+  const getTrendingFeeds = get<Feed[]>("podcasts/trending");
 
   return {
     getRecentEpisodes,
     getFeed,
     getEpisodesByFeedId,
     getRecentFeeds,
+    getTrendingFeeds,
   };
 }

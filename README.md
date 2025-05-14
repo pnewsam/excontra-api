@@ -1,14 +1,22 @@
-# ExContra API
+# ExContra API (Backend)
+
+## Tech Stack
+
+- Typescript
+- HonoJS
+- Cloudflare Workers
 
 ## Get Started
 
 ```
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
-## Deploy
+## Deployment
+
+Check deployments in the Cloudflare Dashboard at https://dash.cloudflare.com. Login is Paul's personal email login.
 
 ```
-npm run deploy
+wrangler deploy
 ```

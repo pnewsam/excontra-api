@@ -55,4 +55,10 @@ app.get("/feeds/:id/episodes", async (c) => {
   return c.json(episodes);
 });
 
+app.get("/trending/feeds", async (c) => {
+  const client = podcastIndex(c);
+  const podcasts = await client.getTrendingFeeds();
+  return c.json(podcasts);
+});
+
 export default app;
