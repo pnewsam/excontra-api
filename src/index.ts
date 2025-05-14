@@ -39,6 +39,12 @@ app.get("/feeds/:id", async (c) => {
   return c.json(feed);
 });
 
+app.get("/recent/feeds", async (c) => {
+  const client = podcastIndex(c);
+  const feeds = await client.getRecentFeeds();
+  return c.json(feeds);
+});
+
 app.get("/feeds/:id/episodes", async (c) => {
   const id = c.req.param("id");
   const client = podcastIndex(c);
@@ -48,4 +54,5 @@ app.get("/feeds/:id/episodes", async (c) => {
   });
   return c.json(episodes);
 });
+
 export default app;
