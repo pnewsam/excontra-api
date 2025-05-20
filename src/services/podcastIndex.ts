@@ -53,11 +53,47 @@ export function podcastIndex(c: Context) {
     };
   }
 
+  function post<T>(
+    path: string
+  ): (
+    params?: Record<string, string>,
+    body?: Record<string, string>
+  ) => Promise<T> {
+    return async (
+      params?: Record<string, string>,
+      body?: Record<string, string>
+    ) => {
+      const headers = await getHeaders();
+      const queryParams = params ? new URLSearchParams(params).toString() : "";
+      const url = queryParams
+        ? `${API_URL}/${path}?${queryParams}`
+        : `${API_URL}/${path}`;
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            ...headers,
+            "Content-Type": "application/json",
+            // "Access-Control-Allow-Origin": "http://localhost:5173",
+            // "Access-Control-Allow-Methods": "POST, OPTIONS",
+            // "Access-Control-Allow-Headers": "*",
+          },
+          body: body ? JSON.stringify(body) : null,
+        });
+        return response.json();
+      } catch (error) {
+        throw error;
+      }
+    };
+  }
+
   const getRecentEpisodes = get<Episode[]>("recent/episodes");
   const getFeed = get<Feed>("podcasts/byfeedid");
   const getEpisodesByFeedId = get<Episode[]>("episodes/byfeedid");
   const getRecentFeeds = get<Feed[]>("/recent/feeds");
   const getTrendingFeeds = get<Feed[]>("podcasts/trending");
+  const getPopularFeeds = post<Feed[]>("podcasts/batch/byguid");
 
   return {
     getRecentEpisodes,
@@ -65,5 +101,6 @@ export function podcastIndex(c: Context) {
     getEpisodesByFeedId,
     getRecentFeeds,
     getTrendingFeeds,
+    getPopularFeeds,
   };
 }

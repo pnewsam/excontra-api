@@ -61,4 +61,11 @@ app.get("/trending/feeds", async (c) => {
   return c.json(podcasts);
 });
 
+app.post("/popular/feeds", async (c) => {
+  const body = await c.req.json();
+  const client = podcastIndex(c);
+  const podcasts = await client.getPopularFeeds({}, body);
+  return c.json(podcasts);
+});
+
 export default app;
